@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.WeiBoMapper">
+		<select id="selectAll" resultType="weiBo">
+		select * from t_weibo
+	</select>
+	<select id="findByAccount" parameterType="string" resultType="weiBo">
+		select * from t_weibo where account like #{_parameter} 
+	</select>
+	<select id="selectPage" resultType="weiBo" parameterType="Query">
+		select * from t_weibo where userid=#{userId} limit ${page},${limit}
+	</select>
+	
+	<select id="countAll" resultType="int">
+		select count(*) from t_weibo 
+	</select>
+	<select id="countUserWeibo" parameterType="int" resultType="int">
+		select count(*) from t_weibo where userid= #{userId} 
+	</select>
+	<select id="selectToUserPage" resultType="weiBo" parameterType="query">
+		select * from t_weibo  
+			<where>
+				<foreach collection="list" separator="," item="userid" open="userid in (" close=")">#{userid}</foreach>
+			</where>
+		
+		 order by time desc limit 0,10;
+	</select>
+	
+	<delete id="deleteWeiBoById" parameterType="int">
+		delete from t_weibo where id = ${id}
+	</delete>
+	<insert id="insertWeiBo" parameterType="weiBo" >
+		<selectKey keyProperty="id" order="AFTER" resultType="int">
+			select last_insert_ID()
+		</selectKey>
+		insert into t_weibo(userId,content,time,pic)values(
+			#{userId},#{content},#{time},#{pic}
+		)
+	
+	</insert>
+	
+		
+</mapper>
