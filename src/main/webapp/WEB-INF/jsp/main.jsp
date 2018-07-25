@@ -37,7 +37,7 @@
 							<a >邮件管理</a>
 						</dd>
 						<dd>
-							<a  id="message">消息管理</a>
+							<a  id="UserMessage">消息管理</a>
 						</dd>
 						<dd>
 							<a id="empower">授权管理</a>
@@ -291,6 +291,10 @@
 					<table class="layui-table" lay-filter="userFriend" id="friendtable">
 					</table>
 				</div>
+				<div class="showUserMesssage page">
+					<table class="layui-table" lay-filter="userMessage" id="messagetable" >
+					</table>
+				</div>
 				<div class="layui-footer">
 					
 					<!-- 底部固定区域 -->
@@ -300,7 +304,7 @@
 		</div>
 
 <script type="text/html" id="barDemo">
-<div style="background:red;">
+<div >
 <a  class="layui-btn layui-btn-mini" lay-event="userFriend" id="showUserFriend" >用户好友</a>
  <a  class="layui-btn layui-btn-mini" lay-event="weiboUser" id="userWeibo">用户微博</a>
   <a class="layui-btn layui-btn-mini" lay-event="editUser">编辑</a>
@@ -328,6 +332,10 @@
 	
     <a class="layui-btn layui-btn-mini" lay-event="editFriend" >编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="delFriend">删除</a>
+</script>
+
+<script type="text/html" id="messageBar">
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="delMessage">删除</a>
 </script>
 </body>
 
