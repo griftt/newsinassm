@@ -561,9 +561,43 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 			    ]]
 			  });
 		}
-
+	
+	//展示待发送信息
+	$("#UserMessage").click(
+	function(){
+		$(".page").css({"opacity":"0","z-index":"1",});
+		$(".showUserMesssage").css({"opacity": "1" , "z-index":"1000"});
+		tableins.reload({
+					elem: '#messagetable'
+					,height: 500
+					,url: '/sinassm/message/userMessage.action' //数据接口
+					,page: true //开启分页
+					,cols: [[ //表头
+					          {checkbox : true,fixed : true,align : 'center',width : 40  }   
+					          ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left',align : 'center'}
+					          ,{field: 'userId', title: '用户ID', width:80,align : 'center'}
+					          ,{field: 'receiveId', title: '好友id', width:80,align : 'center' }
+					          ,{field: 'content', title: '内容', width:80,align : 'center'} 
+					          ,{field: 'pic', title: '图片', width: 150,align : 'center'}
+					          ,{field: 'time', title: '时间', width: 80,align : 'center',sort:true,
+						    	templet:"#mytime"}
+					          ,{toolbar : "#messageBar",title : '操作',width : 200,align : 'center'}
+					        ]]
+					,page : {
+						curr : 1,
+						}
+		});
+	})
+	
+	
 	//下面这个个花括号是layui的
+	
 });
+
+	
+	
+
+	
 	$(".page").css({"opacity":"0","z-index":"1",});
 	$(".users").css({"opacity": "1" , "z-index":"1000",});
 	$("#userAdmin").click(function() {
@@ -586,10 +620,12 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 		$(".page").css({"opacity":"0","z-index":"1",});
 		$(".showWeibo").css({"opacity": "1" , "z-index":"1000",});
 	})
-	$("#showUserFriend").click(function() {
+	$("#UserMessage").click (function() {
 		$(".page").css({"opacity":"0","z-index":"1",});
-		$(".showUserFriend").css({"opacity": "1" , "z-index":"1000",});
+		$(".showUserMesssage").css({"opacity": "1" , "z-index":"1000",});
+		
 	})
+	
 	
 }
 

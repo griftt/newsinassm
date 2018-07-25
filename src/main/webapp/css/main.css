@@ -67,10 +67,19 @@
 	position: absolute;
 	left: 1px;
 	top: 1px;
-	
 }
 .showUserFriend table {
 	width:85%;
+}
+.showUserMessage{
+	width:90%;
+	position: absolute;
+	left: 10px;
+	top: 1px;
+	height:500px;
+}
+.showUserMesssage table {
+	width:80%;
 }
 
 
