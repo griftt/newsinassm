@@ -42,7 +42,8 @@
 	<div class="main">
 		<div class="one"></div>
 		<div class="two">
-			<form id="weiboForm" action="/sinassm/weibo/weiboPublish.action" method="post" enctype="multipart/form-data">
+		<%-- ${pageContext.request.contextPath } --%>
+			<form id="weiboForm" action="<%=request.getContextPath() %>/sinassm/weibo/weiboPublish.action" method="post" enctype="multipart/form-data">
 				<div class="new">
 					<p class="some">推送热点信息</p>
 					<input type="text"name="userId" value="${sessionScope.user.id}">

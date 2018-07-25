@@ -12,6 +12,22 @@
 	<url>http://maven.apache.org</url>
 	<build>
 		<finalName>sinassm</finalName>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+           		 <artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.2</version>
+				<configuration>
+				<url>http://192.168.1.105:8080/manager/text</url>
+				<path>/sina</path>
+				<port>81</port>
+				<server>tomcat7</server>
+				</configuration>
+			</plugin>
+		</plugins>
+	
+	
 	</build>
 	<dependencies>
 		<dependency>
@@ -94,4 +110,5 @@
         </dependency>
        
 	</dependencies>
+	
 </project>
