@@ -43,7 +43,7 @@
 .main .two .show .weibo .fun{border-top: 1px solid #f2f2f5;height: 40px;}
 .main .two .show .weibo .fun li{margin-top:5px;text-align:center;font-size: 11px; float: left;width: 140px;color: #808080;height: 22px;border-left:1px solid #d9d9d9 ;padding-top: 7px;}
 .main .two .show .weibo .fun li:hover{color: #F08850;}
-.main .two .show .weibo .comment{position: absolute; bottom: -138px;left: 1px; width: 599px; background-color: #F2F2F5;border-top:  1px  solid #d9d9d9;}
+.main .two .show .weibo .comment{width: 599px;display:none;opacity:0; background-color: #F2F2F5;border-top:  1px  solid #d9d9d9;}
 .main .two .show .weibo .comment .officail{margin-top:16px;height:28px;width:548px;background:#f8f9fe;border:1px solid #e4e7f8 ;text-align:center ;padding-top: 1px;margin-left: 20px; }
 .main .two .show .weibo .comment .input{margin-left: 20px;margin-top: 10px;}
 .main .two .show .weibo .comment .input img{width: 30px;height: 30px;vertical-align: middle;margin-right: 10px;}
