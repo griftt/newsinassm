@@ -74,6 +74,8 @@ xmlns:websocket="http://www.springframework.org/schema/websocket
 			</list> </property> -->
 		<property name="conversionService" ref="conversionService" />
 	</bean>
+	
+	
 	<!-- 文件上传 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

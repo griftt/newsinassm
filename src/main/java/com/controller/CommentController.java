@@ -21,18 +21,19 @@ public class CommentController {
 	
 	@RequestMapping("/weiboComment.action")
 	@ResponseBody
-	public ResultMap weiboComment(Integer page,Integer limit,Integer objectId){
-		if(page<=0||limit<=0||objectId<=0){
+	public List<Comment> weiboComment(Integer page,Integer limit,Integer userId){
+		if(page<=0||limit<=0||userId<=0){
+			System.out.println("参数有问题");
 			return null;
 		}
 		Query q = new Query();
-		q.setId(objectId);
+		q.setId(userId);
 		q.setLimit(limit);
 		q.setPage((page-1)*limit);
 		List<Comment> list = cms.selectPage(q);
-		int count =cms.countWeiboComment(objectId);
-		System.out.println(list);
-		return new ResultMap(0,"",list,count);
+		int count =cms.countWeiboComment(userId);
+		System.err.println(list);
+		return list;
 	}
 	
 }

@@ -43,7 +43,7 @@
 		<div class="one"></div>
 		<div class="two">
 		<%-- ${pageContext.request.contextPath } --%>
-			<form id="weiboForm" action="<%=request.getContextPath() %>/sinassm/weibo/weiboPublish.action" method="post" enctype="multipart/form-data">
+			<form id="weiboForm" action="<%=request.getContextPath() %>/weibo/weiboPublish.action" method="post" enctype="multipart/form-data">
 				<div class="new">
 					<p class="some">推送热点信息</p>
 					<input type="text"name="userId" value="${sessionScope.user.id}">
@@ -96,8 +96,9 @@
 								<li><img src="../img/mypublish_07.gif"/></li>
 								<li> <input type="checkbox"><span>同时转发到我的微博</span> </li>
 							</ul>
-							<p>评论</p>
+							<p id="weibocritical">评论</p>
 						</div>
+						
 					</div>
 				</div>
 			</div>

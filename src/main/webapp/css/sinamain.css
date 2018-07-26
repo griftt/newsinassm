@@ -56,3 +56,16 @@
  .main .two .show .weibo .comment .publishWord ul li:last-of-type span{font-size: 11px; vertical-align: middle;}
  .main .two .show .weibo .comment .publishWord ul li:last-of-type input{vertical-align: middle;padding-top: 3px;}
  
+ .main .two .show .userconmment{border-bottom:1px solid #808080;}
+.main .two .show .userconmment .userbar2{margin-top:20px;height: 50px; padding-bottom: 10px;}
+.main .two .show .userconmment .userbar2 img{margin-left:20px;vertical-align:top;height: 30px;width: 30px;margin-right:10px;}
+.main .two .show .userconmment .userbar2 ul{ vertical-align: top;display:inline-block}
+.main .two .show .userconmment .userbar2 ul li:first-of-type p span {font-size: 11px;font-weight: bold;color: #eb7350; margin-bottom: 11px;display: inline-block;vertical-align:top;}
+.main .two .show .userconmment .userbar2 ul li:first-of-type p {font-size: 12px;color: #78625c; width:390px;line-height:6px;margin-bottom: 10px;display: inline-block;vertical-align: top;}
+.main .two .show .userconmment .userbar2 ul li:last-of-type span {display: inline-block; font-size: 11px;color: #8e8eaf;margin-right: 364px;}
+.main .two .show .userconmment .userbar2 ul li:last-of-type p {display: inline-block;line-height: 12px; font-size: 11px;color: #8e8eaf;}
+.main .two .show .userconmment .userbar2 ul li:last-of-type p a{display: inline-block; font-size: 11px;width: 33px; color: #8e8eaf;margin-right:6px;margin-left: 6px;border-right: 1px solid #8E8EAF;height: 12px;}
+ .main .two .show .userconmment .userbar2 ul li:last-of-type p a:last-of-type{border: none;}
+ 
+ 
+ 
