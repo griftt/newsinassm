@@ -14,9 +14,10 @@
 <title></title>
 <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../layui/layui.js"></script>
-
-<script type="text/javascript" src="../js/turn.js"></script>
 <link rel="stylesheet" href="../layui/css/layui.css" />
+
+<script type="text/javascript" src="../js/msg.js"></script>
+<script type="text/javascript" src="../js/turn.js"></script>
 <link rel="stylesheet" href="../css/main.css" />
  <script src="../js/date-format.js" type="text/javascript" charset="utf-8"></script>
 
@@ -231,7 +232,7 @@
 					
 					</div>
 				</div>
-				<div class="weibo page">
+			<div class="weibo page">
 				<form class="layui-form" action="">
 					
 					<div class="layui-form-item">
@@ -291,10 +292,17 @@
 					<table class="layui-table" lay-filter="userFriend" id="friendtable">
 					</table>
 				</div>
-				<div class="showUserMesssage page">
-					<table class="layui-table" lay-filter="userMessage" id="messagetable" >
-					</table>
+				<div class="showUserMesssage page" id="showUserMesssagePage">
+					<div class="messagebox">
+						<table  id="messagetable" class="layui-table" lay-filter="userMessage" >
+						</table>
+					</div>
+					
 				</div>
+				
+				
+				
+				
 				<div class="layui-footer">
 					
 					<!-- 底部固定区域 -->

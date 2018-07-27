@@ -1,6 +1,6 @@
 window.onload=function(){
 	layui.use([ 'table', 'element' ], function() {
-		var table = layui.table, laypage = layui.laypage;
+		var table = layui.table;
 		//转换静态表格
 		//table.init('demo', {
 		//height: 400 //设置高度
@@ -107,8 +107,8 @@ window.onload=function(){
 		  } 
 		  else if(layEvent == 'weiboUser'){ //查看用户weibo
 			  reloadWeibo(data.id);
-		    $(".page").css({"opacity":"0","z-index":"1",});
-			$(".showWeibo").css({"opacity": "1" , "z-index":"1000",});
+		    //$(".page").css({"opacity":"0","z-index":"1",});
+			//$(".showWeibo").css({"opacity": "1" , "z-index":"1000",});
 		  } 
 		  else if(layEvent == 'delUser'){ //删除
 			    layer.confirm('真的删除行么', function(index){
@@ -119,9 +119,10 @@ window.onload=function(){
 			  }
 		  else if(layEvent == 'userFriend'){
 			  reloadFriend(data.id)
-			  $(".page").css({"opacity":"0","z-index":"1",});
-			  $(".showUserFriend").css({"opacity": "1" , "z-index":"1000"});
+			  //$(".page").css({"opacity":"0","z-index":"1",});
+			  //$(".showUserFriend").css({"opacity": "1" , "z-index":"1000"});
 		  }
+		  
 		  
 		  else if(layEvent == 'delAdmin'){
 			  layer.confirm('真的想要删除吗？', function(index){
@@ -140,7 +141,10 @@ window.onload=function(){
 		  }else if(layEvent == 'editAdmin'){
 			  alert(data.id)
 		  }
-		 
+		  //weibo页的功能条
+		  else if(layEvent == 'weiboContent'){ //删除
+			   reloadComment(data.id)
+			  }
 	})
 		function deleteSome(id,url){
 			$.ajax({
@@ -161,10 +165,14 @@ window.onload=function(){
 				elem : '#demo',
 				height : 500,
 				url : '/sinassm/user/loadUser.action' //数据接口
-				,
-				page : true //开启分页
-				,
-				cols : [ [ //表头
+				, page:{
+					groups: 1
+					, first: false
+					, last: false
+					, layout: ['limit', 'prev', 'page', 'next', 'count'] //自定义分页布局
+					}
+				
+				,cols : [ [ //表头
 				{
 					checkbox : true,
 					fixed : true,
@@ -381,10 +389,7 @@ window.onload=function(){
 			,page : {
 				curr : 1
 			}
-
-			
-
-			})
+			 })
 		
 		
 		})
@@ -424,7 +429,7 @@ window.onload=function(){
 	function reloadWeibo(obj){
 		//weibo表格
 		tableins.reload({
-				elem : '#weibotable',
+				elem : '#demo',
 				height : 500,
 				url : '/sinassm/weibo/weiboPage.action' //数据接口
 				,
@@ -519,7 +524,7 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 })
 	function reloadComment(id){
 	  tableins.reload({
-		    elem: '#weibotable'
+		    elem: '#demo'
 		    ,height: 500
 		    ,where:{
 		    	objectId:id
@@ -542,7 +547,7 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
   //展示用户的好友
 	function reloadFriend(id){
 		  tableins.reload({
-			    elem: '#friendtable'
+			    elem: '#demo'
 			    ,height: 500
 			    ,where:{
 			    	id:id
@@ -563,12 +568,11 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 		}
 	
 	//展示待发送信息
-	$("#UserMessage").click(
-	function(){
-		$(".page").css({"opacity":"0","z-index":"1",});
-		$(".showUserMesssage").css({"opacity": "1" , "z-index":"1000"});
-		tableins.reload({
-					elem: '#messagetable'
+	$("#UserMessage").click(function(){
+		//$(".page").css({"opacity":"0","z-index":"1",});
+		//$(".showUserMesssage").css({"opacity": "1" , "z-index":"1000"});
+		var tableins_msg=tableins.reload({
+			 		elem: '#demo'
 					,height: 500
 					,url: '/sinassm/message/userMessage.action' //数据接口
 					,page: true //开启分页
@@ -583,11 +587,21 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 						    	templet:"#mytime"}
 					          ,{toolbar : "#messageBar",title : '操作',width : 200,align : 'center'}
 					        ]]
-					,page : {
-						curr : 1,
-						}
-		});
+						
+			  });
+		
+		
+		
 	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//下面这个个花括号是layui的
@@ -604,7 +618,7 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 		$(".page").css({"opacity":"0","z-index":"1",});
 		$(".users").css({"opacity": "1" , "z-index":"1000",});
 	})
-	$("#control").click(function() {
+	$("#control").click(function(){
 		$(".page").css({"opacity":"0","z-index":"1",});
 		$(".userdetail").css({"opacity": "1" , "z-index":"1000",});
 	})
@@ -620,11 +634,7 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 		$(".page").css({"opacity":"0","z-index":"1",});
 		$(".showWeibo").css({"opacity": "1" , "z-index":"1000",});
 	})
-	$("#UserMessage").click (function() {
-		$(".page").css({"opacity":"0","z-index":"1",});
-		$(".showUserMesssage").css({"opacity": "1" , "z-index":"1000",});
-		
-	})
+	
 	
 	
 }
