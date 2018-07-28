@@ -71,16 +71,29 @@
 .showUserFriend table {
 	width:85%;
 }
-.showUserMessage{
-	width:90%;
+.showUserMesssage{
+	width:95%;
 	position: absolute;
-	left: 10px;
+	left: 1px;
 	top: 1px;
-	height:500px;
+	background-color: red;
+	opacity:0;
+	z-index:1
 }
-.showUserMesssage table {
+.showUserMesssage .messagebox {
+	margin-left:10px;
 	width:80%;
 }
+.showUserMesssage div table {
+	width:90%;
+	
+	
+}
+
+
+
+
+
 
 
 .userdetail {

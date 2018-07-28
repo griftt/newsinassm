@@ -49,7 +49,6 @@ public class AdminController {
 	public String login(Admin admin,String code ,Model model,HttpSession session){
 		String mycode=(String) session.getAttribute("code");
 		mycode=mycode.toUpperCase();
-		System.out.println(mycode+"mine and other "+code);
 		if(code==null){
 			return "login";
 		}else{
@@ -59,7 +58,6 @@ public class AdminController {
 			}
 		}
 		
-		System.err.println(admin.getAccount()+"000000000000000000000000"+admin.getPwd());
 		if(admin==null){
 			return "login";
 			

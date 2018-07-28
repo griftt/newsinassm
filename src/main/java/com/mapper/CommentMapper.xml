@@ -22,6 +22,13 @@
 		SELECT C.* ,U.ID uid,U.PIC upic FROM T_COMMENT C,T_USER U WHERE C.OBJECTID=#{id} AND C.USERID=U.ID order by time desc  LIMIT 0,10
 	</select> -->
 	<!-- 所有的微博数 -->
+	<!-- 查找微博的评论 -->
+<!-- 	<select id="selectComemntPage" resultMap="RM_comment" parameterType="CommentQuery"> -->
+<!-- 		SELECT C.* ,U.ID uid,U.PIC upic FROM T_COMMENT C,T_USER U WHERE C.OBJECTID=#{id} AND C.USERID=U.ID order by time desc  LIMIT 0,10 -->
+<!-- 	</select> -->
+	<!-- 查找被回复用户的信息-->
+	
+	
 	<select id="countAll" resultType="int">
 		select count(*) from t_comment
 	</select>
