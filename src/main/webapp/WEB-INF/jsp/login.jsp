@@ -13,7 +13,7 @@
 <script type="text/javascript" src="/sinassm/layui/layui.js"></script>
 <link rel="stylesheet" href="/sinassm/layui/css/layui.css" />
 <script type="text/javascript" src="/sinassm/js/iconfont.js"></script>
-<link rel="stylesheet" href="/sinassm/css/iconfont.css" />
+<link rel="stylesheet" href="../css/iconfont.css" />
 <style type="text/css">
 * {
 	padding: 0;

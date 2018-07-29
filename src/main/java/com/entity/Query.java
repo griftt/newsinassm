@@ -9,6 +9,14 @@ public class Query {
 		String account;
 		Integer userId;
 		List<?> list;
+		Integer objectId;
+		
+		public Integer getObjectId() {
+			return objectId;
+		}
+		public void setObjectId(Integer objectId) {
+			this.objectId = objectId;
+		}
 		public String getAccount() {
 			return account;
 		}
@@ -54,11 +62,10 @@ public class Query {
 		public void setList(List<?> list) {
 			this.list = list;
 		}
-		
 		@Override
 		public String toString() {
 			return "Query [page=" + page + ", limit=" + limit + ", id=" + id + ", account=" + account + ", userId="
-					+ userId + "]";
+					+ userId + ", list=" + list + ", objectId=" + objectId + "]";
 		}
 		
 		

@@ -29,6 +29,21 @@ xmlns:websocket="http://www.springframework.org/schema/websocket
 	
 	<mvc:annotation-driven></mvc:annotation-driven>
 	<!-- 还应配置拦截器-->  
+	<mvc:interceptors>
+		<mvc:interceptor >
+			<mvc:mapping path="/userRequest/*.action"/>
+			<mvc:exclude-mapping path="/userRequest/userLogin.action"/>
+			<bean class="com.interceptor.UserLoginInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor >
+			<mvc:mapping path="/**/*.action"/>
+			<mvc:exclude-mapping path="/userRequest/**"/>
+			<mvc:exclude-mapping path="/adminLogin/login.action"/>
+			<mvc:exclude-mapping path="/adminLogin/code.action"/>
+			<bean class="com.interceptor.AdminLoginInterceptor"/>
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
 	
 	
 	<!-- 注册异常处理器 -->
@@ -40,7 +55,9 @@ xmlns:websocket="http://www.springframework.org/schema/websocket
 
 	<bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+			<!-- 日期的格式转换 -->
 		<property name="webBindingInitializer" ref="customBinder"></property>
+			<!-- json的格式转换 -->
 		<property name="messageConverters">
 			<list>
 				<bean  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
@@ -67,7 +84,6 @@ xmlns:websocket="http://www.springframework.org/schema/websocket
 		</property>
 
 	</bean>
-	
 	<bean id="customBinder"
 		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
 		<!-- <property name="propertyEditorRegistrars"> <list> <ref bean="customPropertyEditor"/> 

@@ -21,7 +21,10 @@ import com.data.ResultMap;
 import com.entity.Friend;
 import com.entity.Query;
 import com.entity.User;
+import com.entity.UserMessage;
 import com.entity.WeiBo;
+import com.entity.WeiboAndUser;
+import com.github.pagehelper.PageInfo;
 import com.serviceImpl.FriendServiceImpl;
 import com.serviceImpl.UserServiceImpl;
 import com.serviceImpl.WeiBoServiceImpl;
@@ -36,6 +39,8 @@ public class WeiboController {
 	@Resource(name="userServiceImpl")
 	private UserServiceImpl us;
 	
+	
+	//后台请求的数据 用户的微博信息
 	@RequestMapping("/weiboPage.action")
 	@ResponseBody
 	public ResultMap seletePage(Integer page,Integer limit,@RequestParam("id") Integer userId){
@@ -59,70 +64,33 @@ public class WeiboController {
 		return new ResultMap(0,"内容为空",list,count);
 		
 	}
-	@RequestMapping("/weiboPublish.action")
-	public String weiboPublish(WeiBo weibo,Model model,MultipartFile userpic) throws IllegalStateException, IOException{
-		System.err.println(weibo+","+userpic);
+	
+	
+
+		//获取最近几天的微博
+	@RequestMapping("/selectWeiBoByDate.action")
+	@ResponseBody
+	public ResultMap selectWeiboByDate(Integer day,Integer page,Integer limit){
+		if(day==null||day<0||page<=0||limit<=0){
+			return null;
+		}
+		System.err.println(day);
+		Query q = new Query();
+		q.setLimit(limit);
+		q.setPage(page);
+		PageInfo<WeiBo> pageInfo = wbs.selectWeiboByDate(day, q);
+		int count =(int) pageInfo.getTotal();
+		List<WeiBo> list = pageInfo.getList();
+		System.out.println(list);
+		if(list.size()==0){
+			return new ResultMap(0,"无相关数据", list,0);
+		}
+		return new ResultMap(0,"", list, count);
 		
-		if(weibo==null||userpic==null){
-			return "sinamain";
-		}
-		if((weibo.getContent()==null||"".equals(weibo.getContent()))&&"".equals(userpic.getOriginalFilename())){
-			return "sinamain";
-		}
-		WeiBo w2 = new WeiBo();
-		if(!"".equals(userpic.getOriginalFilename())){
-			String filename=userpic.getOriginalFilename();
-			String uuid=UUID.randomUUID().toString();
-			String dirname=uuid.substring(0, 3);
-			String newname=uuid+filename.substring(filename.lastIndexOf("."));
-			File des = new File("D:/pic/"+dirname+"/"+newname);
-			if(!des.exists()){
-				des.getAbsoluteFile().mkdirs();
-			}
-			userpic.transferTo(des);
-			w2.setPic(dirname+"/"+newname);
-		}
-		if(weibo.getContent()!=null||!"".equals(weibo.getContent())){
-			w2.setContent(weibo.getContent());
-		}
-			w2.setTime(new Date());
-			w2.setUserId(weibo.getUserId());
-			wbs.insertWeiBo(w2);
-			model.addAttribute("weibo",w2);
-		return "redirect:weibos2.action";
+		
 		
 	}
-
-	@RequestMapping("/weibos.action")
-	public String  get(HttpSession session,Model model){
-		System.err.println("one");
-		Query q = new Query();
-		User user = (User)session.getAttribute("user");
-		q.setId(user.getId());
-		List<WeiBo> weibos = wbs.selectToUserPage(q);
-		model.addAttribute("weibos", weibos);
-		return "sinamain";
-	}
-
-	@RequestMapping("/weibos2.action")
-	public String  get2(HttpSession session,Model model){
-		Query q = new Query();
-		User user = (User)session.getAttribute("user");
-		q.setId(user.getId());
-		List<Friend> fris=us.findUserFriend(user.getId());
-		ArrayList<Integer> list = new ArrayList<>();
-		if(fris!=null){
-			for(Friend f:fris){
-				list.add(f.getFriendId());
-			}
-		}
-		list.add(user.getId());
-		q.setList(list);
-		List<WeiBo> weibos  = wbs.selectToUserPage(q);
-		model.addAttribute("weibos", weibos);
-		return "sinamain";
-	}
-
+	
 	
 	
 }

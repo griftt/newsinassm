@@ -19,6 +19,12 @@
 	<delete id="deleteUserFriend" parameterType="int">
 		delete from t_friend where id = ${id}
 	</delete>
+	<update id="canleFocus" parameterType="query">
+		update t_friend  set focus= 0  where userid=#{userId} and FriendId=#{objectId}
+	</update>
+	<update id="canleBeFocus" parameterType="query">
+		update t_friend  set befocus= 0  where friendid=#{userId} and userid=#{objectId}
+	</update>
 	
 	
 	

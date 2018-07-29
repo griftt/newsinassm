@@ -25,7 +25,6 @@ import com.util.CodeUtil;
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
-	
 	@RequestMapping("/code.action")
 	public void getCode(HttpServletResponse response,HttpSession session){
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -66,6 +65,9 @@ public class AdminController {
 				return "login";
 			}else{
 				Admin admin2=adminService.findAdmin(admin);
+				if(admin2==null){
+					return "login";
+				}
 				session.setAttribute("admin", admin2);
 				model.addAttribute("admin",admin2);
 				return "main";

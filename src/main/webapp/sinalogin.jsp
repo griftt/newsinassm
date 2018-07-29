@@ -108,7 +108,7 @@ form .login {
 </head>
 <body>
 	<div class="box">
-		<form action="/sinassm/user/userLogin.action" method="post">
+		<form action="/sinassm/userRequest/userLogin.action" method="post">
 
 			<p style="display: none;">
 				<img src="../resources/images/bg-sidebar.gif" />

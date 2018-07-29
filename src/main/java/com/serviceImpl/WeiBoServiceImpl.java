@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entity.Query;
+import com.entity.UserMessage;
 import com.entity.WeiBo;
+import com.entity.WeiboAndUser;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mapper.WeiBoMapper;
 import com.serviceInterface.WeiBoServiceInterface;
 
@@ -32,12 +36,8 @@ public class WeiBoServiceImpl implements WeiBoServiceInterface {
 			System.err.println(2);
 			return null;
 		}
-		
-		 
-		
 		return wbm.selectPage(q);
 	}
-
 	@Override
 	public List<WeiBo> findByAccount(String account) {
 		// TODO Auto-generated method stub
@@ -60,6 +60,7 @@ public class WeiBoServiceImpl implements WeiBoServiceInterface {
 		return false;
 	}
 
+	
 	@Override
 	public boolean insertWeiBo(WeiBo weibo) {
 		if(weibo!=null){
@@ -82,16 +83,50 @@ public class WeiBoServiceImpl implements WeiBoServiceInterface {
 	}
 
 	@Override
-	public List<WeiBo> selectToUserPage(Query q) {
-		if(q!=null){
+	public List<WeiboAndUser> selectToUserPage(Query q) {
+		if(q!=null&&q.getList().size()>0){
 			return wbm.selectToUserPage(q);
-			
 		}
 		return null;
 		
 		 
 	}
 
+	public UserMessage getUserMessage(Query q) {
+		if(q==null){
+			return null;
+		}
+		if(q.getObjectId()<=0||q.getUserId()<=0){
+			return null;
+		}
+		return wbm.getUserMessage(q);
+		
+	}
 
+	@Override
+	public Integer getFocus(Query q) {
+		// TODO Auto-generated method stub
+		
+		return wbm.getFocus(q);
+	}
+
+	@Override
+	public Integer getBefocus(Query q) {
+		// TODO Auto-generated method stub
+		return wbm.getBefocus(q);
+	}
+
+	@Override
+	public PageInfo selectWeiboByDate(Integer day,Query q) {
+		if(day<0){
+			return null;
+		}
+		PageHelper.startPage(q.getPage(), q.getLimit());
+		List<WeiBo> list=(List<WeiBo>) wbm.selectWeiboByDate(day);
+		PageInfo page = new PageInfo(list);
+		return page;
+	}
+
+	
 
 }

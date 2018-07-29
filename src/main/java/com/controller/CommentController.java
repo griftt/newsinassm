@@ -19,9 +19,14 @@ public class CommentController {
 	@Resource(name="commentServiceImpl")
 	private CommentServiceImpl cms;
 	
+	
+	//查看weibo 评论
 	@RequestMapping("/weiboComment.action")
 	@ResponseBody
 	public ResultMap weiboComment(Integer page,Integer limit,Integer objectId){
+		if(page==null||limit==null||objectId==null){
+			return null;
+		}
 		if(page<=0||limit<=0||objectId<=0){
 			System.out.println("参数有问题");
 			return null;

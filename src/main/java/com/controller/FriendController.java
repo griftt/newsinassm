@@ -19,6 +19,7 @@ public class FriendController {
 	
 	@Autowired
 	private FriendServiceImpl fsi;
+	//后台请求
 	@RequestMapping("/userFriend.action")
 	@ResponseBody
 	public ResultMap userFriend(Integer page,Integer limit,@RequestParam("id") Integer userId){
@@ -34,6 +35,19 @@ public class FriendController {
 		System.err.println(list);
 		return new ResultMap(0,"", list,num);
 		
+	}
+	@RequestMapping("/canleFocus.action")
+	@ResponseBody
+	public boolean canleFocus(Integer userId ,Integer objectId){
+		System.err.println(userId+"m"+objectId);
+		if(userId==null||userId<=0){
+			System.err.println("controller");
+			return false;
+		}
+		Query q = new Query();
+		q.setObjectId(objectId);
+		q.setUserId(userId);
+		return fsi.canleFocus(q);
 	}
 	
 

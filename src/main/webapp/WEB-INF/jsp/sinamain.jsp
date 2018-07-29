@@ -31,7 +31,7 @@
 		<li>视频</li>
 		<li>发现</li>
 		<li>游戏</li>
-		<li>${sessionScope.user.name}</li>
+		<li >${sessionScope.user.name}</li>
 	</ul>
 	<ul class="barli2">
 		<li>信息</li>
@@ -43,16 +43,16 @@
 		<div class="one"></div>
 		<div class="two">
 		<%-- ${pageContext.request.contextPath } --%>
-			<form id="weiboForm" action="<%=request.getContextPath() %>/weibo/weiboPublish.action" method="post" enctype="multipart/form-data">
+			<form id="weiboForm" action="<%=request.getContextPath() %>/userRequest/weiboPublish.action" method="post" enctype="multipart/form-data">
 				<div class="new">
 					<p class="some">推送热点信息</p>
-					<input type="text"name="userId" value="${sessionScope.user.id}">
+					<input type="text" name="userId" id="main_userId" value="${sessionScope.user.id}">
 					<textarea name="content"></textarea>
 					<div class="nav">
 						<ul>
 							<li>表情</li>
 							<li>视频</li>
-							<li><span >图片</span>
+							<li><span class="picIcon">图片</span>
 							<input type="file" name="userpic" accept="image/gif,image/jpeg,image/jpg,image/png" class="uploadpic"/> </li>
 							<li>话题</li>
 							<li>头条文章</li>
@@ -63,30 +63,49 @@
 				</div>
 				
 			</form>
-		<c:forEach items="${weibos}" var="weibo">
+		<c:forEach items="${weibos}" var="wb">
 			<div class="show">
 				<div class="weibo">
+					<input style="display: none;" type="text" id="userId" value="${wb.weibo.userId}"><input style="display: none;" type="text" id="objectId" value="${wb.weibo.id}">
 					<div class="userbar">
-						<img src="/pic/${sessionScope.user.pic}"/>
+						<img class="userIcon" src="/pic/${wb.user.pic}"/>
 						<ul>
-							<li>昵称${sessionScope.user.name}</li>
-							<li>时间</li>
+							<li>${wb.user.name}</li>
+							<li>${wb.weibo.time}</li>
 						</ul>
 					</div>
-					<div class="userWord">${weibo.content}</div>
-					<div class="userPic"><img  src="/pic/${weibo.pic}"></div>
+					<div class="userWord">${wb.weibo.content}</div>
+					<div class="userPic"><img  src="/pic/${wb.weibo.pic}"></div>
 					<ul class="fun">
 							<li>推广</li>
 							<li>转发</li>
 							<li class="pinglun">评论</li>
 							<li>赞</li>
 					</ul>
+				<c:if test="${wb.weibo.userId!=sessionScope.user.id}">	
+					<div id="personBox" style="opacity:0;z-index:-100;"  >
+							<div class="up">
+								<img src="/pic/${wb.user.pic}"/>
+								<p>${wb.user.name}</p>
+								<p><span>简介：${wb.user.statement}</span><span></span></p>
+								
+							</div>
+							<div class="down" >
+								<ul>
+									<li>关注  <span id="focusCount"></span></li>
+									<li>粉丝    <span id="befocusCount"></span> </li>
+									<li>微博    <span id="weiboCount"></span></li>
+								</ul>
+								<p class="province"></p>
+								<p class="button"> <span id="canleFocus">取消关注</span><span>私信</span></p>
+							</div>
+					</div>
+				</c:if>	
 					<div class="comment">
 						<div class="officail">
-							sdfsdfasdfasdfasdf
 						</div>
 						<div class="input">
-							<img  src="/pic/${user.pic}"/>
+							<img  src="/pic/${wb.user.pic}"/>
 							<input type="text" placeholder="尽情毒舌吧" />
 						</div>
 						<div class="publishWord">

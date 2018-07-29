@@ -13,5 +13,8 @@ public interface FriendServiceInterface {
 	public int countUserFriend(int objectId);
 	public void updateUserFriend(Friend fri);
 	public void insertUserFriend(Friend fri);
-	void deleteUserFriend(int id);
+	public void deleteUserFriend(int id);
+	public boolean canleFocus(Query q);
+	public boolean canleBeFocus(Query q);
+	
 }

@@ -16,7 +16,6 @@
 <script type="text/javascript" src="../layui/layui.js"></script>
 <link rel="stylesheet" href="../layui/css/layui.css" />
 
-<script type="text/javascript" src="../js/msg.js"></script>
 <script type="text/javascript" src="../js/turn.js"></script>
 <link rel="stylesheet" href="../css/main.css" />
  <script src="../js/date-format.js" type="text/javascript" charset="utf-8"></script>
@@ -47,7 +46,7 @@
 			</ul>
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a> <img src
-							="http://t.cn/RCzsdCq" class="layui-nav-img"> ${admin.name}  </a>
+							="http://t.cn/RCzsdCq" class="layui-nav-img" > ${admin.name}  </a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="">基本资料</a>
@@ -66,31 +65,25 @@
 				<ul class="layui-nav layui-nav-tree" lay-shrink="all"
 					lay-filter="test">
 					<li class="layui-nav-item layui-nav-itemed"><a class=""
-						href="javascript:;">所有商品</a>
-						<dl class="layui-nav-child">
+						href="javascript:;" >微博查看</a>
+						<dl class="layui-nav-child" id="weibo_check">
 							<dd>
-								<a href="javascript:;">列表一</a>
+								<a  id="weibo_today" >今日微博</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">列表二</a>
+								<a  id="weibo_threeday" >最近三天</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">列表三</a>
-							</dd>
-							<dd>
-								<a href="">超链接</a>
+								<a id="weibo_week" >最近一周</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a href="javascript:;">解决方案</a>
+					<li class="layui-nav-item"><a href="javascript:;">用户信息</a>
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="javascript:;">列表一</a>
+								<a id="newuser_three">近三天新用户</a>
 							</dd>
 							<dd>
-								<a href="javascript:;">列表二</a>
-							</dd>
-							<dd>
-								<a href="">超链接</a>
+								<a id="user_online">当前在线用户</a>
 							</dd>
 						</dl></li>
 					<li class="layui-nav-item"><a href="">云市场</a></li>
@@ -352,6 +345,13 @@
     {{#   
     var date = new Date();
     date.setTime(d.time);
+    return date.Format("yyyy-MM-dd hh:mm:ss"); 
+    }} 
+    </script>
+     <script id="usercreatetime" type="text/html">
+    {{#   
+    var date = new Date();
+    date.setTime(d.createtime);
     return date.Format("yyyy-MM-dd hh:mm:ss"); 
     }} 
     </script>

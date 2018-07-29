@@ -13,8 +13,7 @@ window.onload=function(){
 			elem : '#demo',
 			height : 500,
 			url : '/sinassm/user/loadUser.action' ,//数据接口
-			page : true //开启分页
-			,
+			page : true ,//开启分页
 			cols : [ [ //表头
 			{
 				checkbox : true,
@@ -73,7 +72,13 @@ window.onload=function(){
 				title : '签名',
 				width : 80,
 				align : 'center'
-			}, {
+			},  {
+				field : 'createtime',
+				title : '注册时间',
+				width : 120,
+				align : 'center',
+				templet: "#usercreatetime"
+			},{
 				field : 'dao',
 				title : '操作',
 				width : 260,
@@ -165,12 +170,7 @@ window.onload=function(){
 				elem : '#demo',
 				height : 500,
 				url : '/sinassm/user/loadUser.action' //数据接口
-				, page:{
-					groups: 1
-					, first: false
-					, last: false
-					, layout: ['limit', 'prev', 'page', 'next', 'count'] //自定义分页布局
-					}
+				,page : true //开启分页
 				
 				,cols : [ [ //表头
 				{
@@ -229,35 +229,132 @@ window.onload=function(){
 				}, {
 					field : 'statement',
 					title : '签名',
-					width : 80,
+					width : 120,
 					align : 'center'
 				}, {
+					field : 'createtime',
+					title : '注册时间',
+					width : 120,
+					align : 'center',
+					sort:true,
+					templet: "#usercreatetime"
+						
+				}
+				, {
 					field : 'dao',
 					title : '操作',
-					width : 260,
+					width : 300,
 					toolbar : "#barDemo",
 					align : 'center'
 				}
 
 				] ],
-				id : 'first',
-				request : {
-					pageName : 'page' //页码的参数名称，默认：page
-					,
-					limitName : 'limit' //每页数据量的参数名，默认：limit
-				}
+				
 
 			});
 		})
-
-		var $search_in = $("#sea");
-		$search_in.keyup(function() {
-			var account = $(this).val();
+		//近三天注册的用户或当前在线用户
+		function getUser(url){
+			$("#userAdmin").trigger("click")
 			
 			tableins.reload({
 				elem : '#demo',
 				height : 500,
-				
+				url :url //数据接口
+				,page : true //开启分页
+				,where:{
+					"day":3
+				}
+				,cols : [ [ //表头
+				{
+					checkbox : true,
+					fixed : true,
+					align : 'center',
+					width : 40
+				}, {
+					field : 'id',
+					type : 'numbers',
+					title : 'ID',
+					fixed: 'left',
+					width : 80,
+					sort : true,
+					align : 'center'
+				}, {
+					field : 'account',
+					title : '账号',
+					width : 80,
+					align : 'center'
+				}, {
+					field : 'pwd',
+					title : '密码',
+					width : 80,
+					align : 'center'
+				}, {
+					field : 'name',
+					title : '用户名',
+					width : 90,
+					align : 'center'
+				}, {
+					field : 'gender',
+					title : '性别',
+					width : 80,
+					align : 'center'
+				}, {
+					field : 'province',
+					title : '省份',
+					width : 80,
+					align : 'center'
+				}, {
+					field : 'city',
+					title : '城市',
+					width : 80,
+					align : 'center'
+				}, {
+					field : 'birthday',
+					title : '生日',
+					width : 80,
+					align : 'center'
+				}, {
+					field : 'pic',
+					title : '头像',
+					width : 100,
+					align : 'center'
+				},{
+					field : 'createtime',
+					title : '注册时间',
+					width : 120,
+					align : 'center',
+					sort:true,
+					templet: "#usercreatetime"
+				},{
+					field : 'statement',
+					title : '签名',
+					width : 80,
+					align : 'center'
+				}, {
+					field : 'dao',
+					title : '操作',
+					width : 300,
+					toolbar : "#barDemo",
+					align : 'center'
+				}
+
+				]],
+			});
+			
+			
+			
+			
+		}
+		
+		
+		
+		var $search_in = $("#sea");
+		$search_in.keyup(function() {
+			var account = $(this).val();
+			tableins.reload({
+				elem : '#demo',
+				height : 500,
 				url : '/sinassm/user/findUser.action?account='+account //数据接口
 				,
 				page : true //开启分页
@@ -319,7 +416,7 @@ window.onload=function(){
 				}, {
 					field : 'statement',
 					title : '签名',
-					width : 200,
+					width : 300,
 					align : 'center'
 				}, {
 					field : 'dao',
@@ -381,7 +478,7 @@ window.onload=function(){
 			},{
 				field : 'dao',
 				title : '操作',
-				width : 260,
+				width : 300,
 				toolbar : "#adminBar",
 				align : 'center'
 			}
@@ -460,23 +557,23 @@ window.onload=function(){
 				}, {
 					field : 'content',
 					title : '内容',
-					width : 80,
+					width : 270,
 					align : 'center'
 				}, {
 					field : 'time',
 					title : '发布时间',
-					width : 90,
+					width : 193,
 					align : 'center',
 					 templet: "#mytime"
 				}, {
 					field : 'pic',
 					title : '图片',
-					width : 80,
+					width : 120,
 					align : 'center'
 				}, {
 					toolbar : "#weiboBar",
 					title : '操作',
-					width : 200,
+					width : 300,
 					align : 'center'
 				}
 	
@@ -540,7 +637,7 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 		      ,{field: 'content', title: '内容', width: 177,align : 'center'}
 		      ,{field: 'time', title: '时间', width: 80,align : 'center',sort:true,
 		    	  templet: "#mytime"}
-		      , {toolbar : "#WeiboContentBar",	title : '操作',width : 200,align : 'center'}
+		      , {toolbar : "#WeiboContentBar",	title : '操作',width : 300,align : 'center'}
 		    ]]
 		  });
 	}
@@ -562,7 +659,7 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 			      ,{field: 'name', title: '好友昵称', width:80,align : 'center'} 
 			      ,{field: 'focus', title: '你关注ta', width: 177,align : 'center'}
 			      ,{field: 'beFocus', title: 'ta关注你', width: 177,align : 'center'}
-			      , {toolbar : "#friendBar",	title : '操作',width : 200,align : 'center'}
+			      , {toolbar : "#friendBar",	title : '操作',width : 300,align : 'center'}
 			    ]]
 			  });
 		}
@@ -571,6 +668,7 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 	$("#UserMessage").click(function(){
 		//$(".page").css({"opacity":"0","z-index":"1",});
 		//$(".showUserMesssage").css({"opacity": "1" , "z-index":"1000"});
+		$("#userAdmin").trigger("click")
 		var tableins_msg=tableins.reload({
 			 		elem: '#demo'
 					,height: 500
@@ -581,11 +679,11 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 					          ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left',align : 'center'}
 					          ,{field: 'userId', title: '用户ID', width:80,align : 'center'}
 					          ,{field: 'receiveId', title: '好友id', width:80,align : 'center' }
-					          ,{field: 'content', title: '内容', width:80,align : 'center'} 
-					          ,{field: 'pic', title: '图片', width: 150,align : 'center'}
-					          ,{field: 'time', title: '时间', width: 80,align : 'center',sort:true,
+					          ,{field: 'content', title: '内容', width:270,align : 'center'} 
+					          ,{field: 'pic', title: '图片', width: 120,align : 'center'}
+					          ,{field: 'time', title: '时间', width: 193,align : 'center',sort:true,
 						    	templet:"#mytime"}
-					          ,{toolbar : "#messageBar",title : '操作',width : 200,align : 'center'}
+					          ,{toolbar : "#messageBar",title : '操作',width : 100,align : 'center'}
 					        ]]
 						
 			  });
@@ -594,10 +692,95 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 		
 	})
 	
+	function reloadWeiboByDate(myurl,day){
+		tableins.reload({
+			elem : '#demo',
+			height : 500,
+			url :myurl, //数据接口
+			page : true, //开启分页
+			where:{
+				"day":day
+			},
+			cols : [ [ //表头
+			{
+				checkbox : true,
+				fixed : true,
+				align : 'center',
+				width : 40
+			}, {
+				field : 'id',
+				type : 'numbers',
+				title : 'ID',
+				width : 80,
+				sort : true,
+				fixed: 'left',
+				align : 'center'
+			}, {
+				field : 'userId',
+				title : '用户id',
+				width : 80,
+				align : 'center'
+			}, {
+				field : 'content',
+				title : '内容',
+				width : 270,
+				align : 'center'
+			}, {
+				field : 'time',
+				title : '发布时间',
+				width : 193,
+				sort : true,
+				align : 'center',
+				 templet: "#mytime"
+			}, {
+				field : 'pic',
+				title : '图片',
+				width : 120,
+				align : 'center'
+			}, {
+				toolbar : "#weiboBar",
+				title : '操作',
+				width : 300,
+				align : 'center'
+			}
+
+			]],
+		});
+		
+		
+	}
+	//查询近三天的微博
+	var url="/sinassm/weibo/selectWeiBoByDate.action"
+	$("#weibo_today").click(function(){
+		$("#userAdmin").trigger("click")
+		reloadWeiboByDate(url,0);
+		
+	})
+	$("#weibo_threeday").click(function(){
+		$("#userAdmin").trigger("click")
+		reloadWeiboByDate(url,3);
+		
+	})
+	$("#weibo_week").click(function(){
+		$("#userAdmin").trigger("click")
+		reloadWeiboByDate(url,7);
+		
+	})
 	
-	
-	
-	
+	//查询新注册用户
+	$("#newuser_three").click(function(){
+		getUser("/sinassm/user/getNewUser.action")
+		$("#userAdmin").trigger("click");
+		
+		
+	})
+	//查询在线用户
+	$("#user_online").click(function(){
+		getUser("/sinassm/user/getUserOnline.action")
+		$("#userAdmin").trigger("click");
+		
+		
+	})
 	
 	
 	

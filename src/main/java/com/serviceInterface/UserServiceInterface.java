@@ -5,6 +5,7 @@ import java.util.List;
 import com.entity.Friend;
 import com.entity.Query;
 import com.entity.User;
+import com.github.pagehelper.PageInfo;
 
 public interface UserServiceInterface {
 	public void deleteUserById(int id);
@@ -16,6 +17,8 @@ public interface UserServiceInterface {
 	public List<User> findByAccount(String account);
 	public User userLogin(User user);
 	public List<Friend> findUserFriend(int id);
+	public PageInfo<User> selectNewUserByDate(Integer day, Query q);
+		
 
 	
 }

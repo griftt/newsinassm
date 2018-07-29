@@ -21,6 +21,7 @@ public class MyDateConverter implements Converter<String, Date> {
 			Date date=null;
 			try {
 				date = df.parse(s);
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

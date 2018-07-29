@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.WeiBoMapper">
-		<select id="selectAll" resultType="weiBo">
+	<resultMap type="weiboAndUser" id="RM_weiboAndUser">
+		<id column="id" property="weibo.id"/>
+		<result column="userid" property="weibo.userId"/>
+		<result column="content" property="weibo.content"/>
+		<result column="pic" property="weibo.pic"/>
+		<result column="time" property="weibo.time"/>
+		<association property="user" javaType="user">
+			<id column="userid" property="id"/>
+			<result column="userpic" property="pic"/>
+			<result column="name" property="name"/>
+			<result column="statement" property="statement"/>
+		</association>
+	</resultMap>
+	<select id="selectAll" resultType="weiBo">
 		select * from t_weibo
 	</select>
 	<select id="findByAccount" parameterType="string" resultType="weiBo">
@@ -17,13 +30,33 @@
 	<select id="countUserWeibo" parameterType="int" resultType="int">
 		select count(*) from t_weibo where userid= #{userId} 
 	</select>
-	<select id="selectToUserPage" resultType="weiBo" parameterType="query">
-		select * from t_weibo  
+	<select id="selectToUserPage" resultMap="RM_weiboAndUser" parameterType="query">
+		 select w.*,u.pic userpic,u.name,u.statement statement from t_weibo w,t_user u 
 			<where>
-				<foreach collection="list" separator="," item="userid" open="userid in (" close=")">#{userid}</foreach>
+				<foreach collection="list" separator="," item="u" open="userid in (" close=")">#{u}</foreach>
 			</where>
-		
-		 order by time desc limit 0,10;
+			and u.id=w.userid 
+		 order by time desc limit 0,20;
+	</select>
+	<!-- 搜索获得微博的数量和user的省份 -->
+	<select id="getUserMessage" resultType="userMessage" parameterType="query">
+		SELECT U.PROVINCE province,count(W.ID) weiboCount FROM T_USER U,T_WEIBO W  WHERE W.USERID=#{userId} AND  U.ID=W.USERID ;
+	
+	</select>
+	<!-- 搜索关注的数量 -->
+	<select id="getFocus" resultType="int" parameterType="query">
+		select count(*) from t_friend where userid=#{userId} and focus=1
+	
+	</select>
+	<!-- 搜粉丝数量-->
+	<select id="getBefocus" resultType="int" parameterType="query">
+		SELECT count(focus) befocusCount from t_friend where friendid=#{userId} AND FOCUS=1
+	
+	</select>
+	
+	<!-- 获得近几天的微博 -->
+	<select id="selectWeiboByDate" resultType="weiBo" parameterType="int">
+		select * from t_weibo  where  date_sub( curdate(),interval #{day} day) &lt;= time
 	</select>
 	
 	<delete id="deleteWeiBoById" parameterType="int">
@@ -36,7 +69,6 @@
 		insert into t_weibo(userId,content,time,pic)values(
 			#{userId},#{content},#{time},#{pic}
 		)
-	
 	</insert>
 	
 		

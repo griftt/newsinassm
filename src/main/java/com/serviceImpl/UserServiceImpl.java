@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import com.entity.Friend;
 import com.entity.Query;
 import com.entity.User;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mapper.UserMapper;
 import com.serviceInterface.UserServiceInterface;
 @Service
@@ -74,8 +77,12 @@ public class UserServiceImpl implements UserServiceInterface {
 		if(user.getAccount()==null||user.getPwd()==null){
 			return null;
 		}
-		
-		return userMapper.userLogin(user);
+		User user2 = userMapper.userLogin(user);
+		if(user2==null){
+			System.err.println("user2null+aaaaaaaaaaaaaaaaaaaaaaaaa");
+			return null;
+		}
+		return user2;
 	}
 
 	@Override
@@ -84,6 +91,23 @@ public class UserServiceImpl implements UserServiceInterface {
 			return null;
 		}
 		return userMapper.findUserFriend(id);
+	}
+
+	public PageInfo<User> selectNewUserByDate(Integer day, Query q) {
+		PageHelper.startPage(q.getPage(),q.getLimit());
+		
+		List<User> list = userMapper.selectNewUserByDate(day);
+		PageInfo<User> page = new PageInfo<User>(list);
+		return page;
+	}
+
+	public PageInfo<User> selectUserOnline(Query q) {
+		PageHelper.startPage(q.getPage(),q.getLimit());
+		List<User> list = userMapper.selectUserOnline(q);
+		PageInfo<User> page = new PageInfo<User>(list);
+		return page;
+	
+		
 	}
 
 	

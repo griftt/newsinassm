@@ -16,7 +16,8 @@ public interface FriendMapper {
 	public void deleteUserFriend(int id);
 	public void updateUserFriend(Friend fri);
 	public void insertUserFriend(Friend fri);
-	
+	public boolean canleFocus(Query q );
+	public boolean canleBeFocus(Query q );
 
 
 }

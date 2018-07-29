@@ -1,5 +1,7 @@
 package com.entity;
 
+import java.util.Date;
+
 public class User {
 	private int id;
 	private String account;
@@ -10,14 +12,10 @@ public class User {
 	private String city;
 	private String gender;
 	private String mail;
-	private Integer friendId;
-
+	private Date createtime;
 	private String name;
 	private String statement;
 
-	public void setFriendId(Integer friendId) {
-		this.friendId = friendId;
-	}
 
 	public String getStatement() {
 		return statement;
@@ -107,19 +105,20 @@ public class User {
 		this.mail = mail;
 	}
 
-	public int getFriendId() {
-		return friendId;
+	public Date getCreatetime() {
+		return createtime;
 	}
 
-	public void setFriendId(int friendId) {
-		this.friendId = friendId;
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", account=" + account + ", pwd=" + pwd + ", pic=" + pic + ", birthday=" + birthday
-				+ ", province=" + province + ", city=" + city + ", gender=" + gender + ", mail=" + mail + ", friendId="
-				+ friendId + ", name=" + name + ", statement=" + statement + "]";
+				+ ", province=" + province + ", city=" + city + ", gender=" + gender + ", mail=" + mail
+				+ ", createtime=" + createtime + ", name=" + name + ", statement=" + statement + "]";
 	}
 
+	
 }

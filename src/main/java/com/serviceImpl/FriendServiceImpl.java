@@ -66,4 +66,37 @@ public class FriendServiceImpl implements FriendServiceInterface{
 		
 	}
 
+	@Override
+	public boolean canleFocus(Query q) {
+		// TODO Auto-generated method stub
+		if(q==null){
+			return false;
+			}
+			if(q.getObjectId()<=0||q.getUserId()<=0){
+				return false;
+			}
+			boolean y=  frm.canleFocus(q);
+			if(y){
+				return frm.canleBeFocus(q);
+			}
+			return false;
+		
+	}
+
+	@Override
+	public boolean canleBeFocus(Query q) {
+		if(q==null){
+		return false;
+		}
+		if(q.getObjectId()<=0||q.getUserId()<=0){
+			return false;
+		}
+		boolean y=  frm.canleFocus(q);
+		if(y){
+			return frm.canleBeFocus(q);
+		}
+		return false;
+	}
+
+	
 }

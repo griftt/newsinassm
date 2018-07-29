@@ -11,10 +11,23 @@
 		select * from t_user limit ${page},${limit}
 	</select>
 	<select id="findUserFriend" parameterType="int" resultType="friend">
-		select friendId from t_friend where userid=#{id}
+		select friendId from t_friend where userid=#{id} and focus=1
 	</select>
 	<select id="countAll" resultType="int">
 		select count(*) from t_user 
+	</select>
+	<!-- 获取新注册用户 -->
+	<select id="selectNewUserByDate" parameterType="query" resultType="user">
+		select * from t_user where date_sub(curdate(), interval #{day} day) &lt;= createtime
+	</select>
+	<!-- 获取当前在线用户 -->
+	<select id="selectUserOnline" parameterType="query" resultType="user">
+		select * from t_user 
+		<where>
+			<foreach collection="list" item="id" separator="," open="id in (" close=")">
+			#{id}</foreach>
+		</where>
+	
 	</select>
 	<select id="userLogin" parameterType="User" resultType="user">
 		select * from t_user where account = #{account} and pwd=#{pwd} 
@@ -22,6 +35,7 @@
 	<delete id="deleteUserById" parameterType="int">
 		delete from t_user where id = ${id}
 	</delete>
+	
 	
 	
 	
