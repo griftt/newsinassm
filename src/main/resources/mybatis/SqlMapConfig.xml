@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<package name="com.entity"/>
 	</typeAliases>
-	
+	<!-- 用于分页的插件 -->
 	<plugins>
 		<plugin interceptor="com.github.pagehelper.PageInterceptor">
 			<property name="helperDialect" value="mysql"/>
