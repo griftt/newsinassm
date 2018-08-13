@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.entity.Friend;
 import com.entity.Query;
 import com.entity.User;
-import com.github.pagehelper.Page;
+import com.entity.Uw;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mapper.UserMapper;
@@ -109,7 +109,12 @@ public class UserServiceImpl implements UserServiceInterface {
 	
 		
 	}
-
+	
+	public List<Uw> s(Query q){
+		List<Uw> list = userMapper.selectUserWeiboByDate(q);
+		System.err.println(list);
+		return list;
+	}
 	
 	
 }

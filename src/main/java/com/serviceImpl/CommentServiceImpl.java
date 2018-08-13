@@ -20,7 +20,6 @@ public class CommentServiceImpl implements CommentServiceInterface {
 	public List<Comment> selectAll() {
 		return null;
 	}
-
 	@Override
 	public List<Comment> selectPage(Query q) {
 		if(q==null){
@@ -43,7 +42,7 @@ public class CommentServiceImpl implements CommentServiceInterface {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+     
 	@Override
 	public int countWeiboComment(int objectId) {
 		return cmp.countWeiboComment(objectId);

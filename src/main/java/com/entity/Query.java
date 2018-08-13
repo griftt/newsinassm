@@ -10,7 +10,15 @@ public class Query {
 		Integer userId;
 		List<?> list;
 		Integer objectId;
+		String message;
 		
+		
+		public String getMessage() {
+			return message;
+		}
+		public void setMessage(String message) {
+			this.message = message;
+		}
 		public Integer getObjectId() {
 			return objectId;
 		}

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.Map.Entry;
 
@@ -15,6 +16,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,7 +88,6 @@ public class UserRequestController {
 		//发布微博
 		@RequestMapping("/weiboPublish.action")
 		public String weiboPublish(WeiBo weibo,Model model,MultipartFile userpic,HttpSession session) throws IllegalStateException, IOException{
-			System.err.println(weibo+","+userpic);
 			
 			if(weibo==null||userpic==null){
 				return "sinamain";
@@ -163,6 +164,15 @@ public class UserRequestController {
 			return "sinalogin";
 		}
 		
+		@RequestMapping("/userLoginout.action")
+		public String loginOut(HttpSession session){
+				User user=(User) session.getAttribute("user");
+				Map<Integer,HttpSession> users = (Map<Integer, HttpSession>)session.getServletContext().getAttribute("userSessionMap");
+				users.remove(user.getId());
+			return "sinalogin";
+			
+			
+		}
 	
 	
 	

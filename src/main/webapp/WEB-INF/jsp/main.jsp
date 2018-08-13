@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>  
 <%@ page isELIgnored="false" %>
 <%
 	String path = request.getContextPath();
@@ -24,7 +25,7 @@
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
-			<div class="layui-logo">layui 后台布局</div>
+			<div class="layui-logo">当前在线人数 : <span id="count"> ${countOnline}</span> </div>
 			<!-- 头部区域（可配合layui已有的水平导航） -->
 			<ul class="layui-nav layui-layout-left">
 				<li class="layui-nav-item" id="control"><a >控制台</a></li>
@@ -45,8 +46,18 @@
 					</dl></li>
 			</ul>
 			<ul class="layui-nav layui-layout-right">
-				<li class="layui-nav-item"><a> <img src
-							="http://t.cn/RCzsdCq" class="layui-nav-img" > ${admin.name}  </a>
+				<li class="layui-nav-item"><a> 
+				<c:choose> 	
+					<c:when test="${admin.pic==null}">
+					 <img src="http://t.cn/RCzsdCq" class="layui-nav-img " id="admin_icon" > 
+				    </c:when>
+					<c:otherwise>
+						<img src="/pic/${admin.pic}" class="layui-nav-img " id="admin_icon" >
+					</c:otherwise>	
+				</c:choose> 	
+							<%-- <shiro:principal property="name" /> --%>
+							${sessionScope.admin.name}
+							</a>
 					<dl class="layui-nav-child">
 						<dd>
 							<a href="">基本资料</a>
@@ -86,7 +97,7 @@
 								<a id="user_online">当前在线用户</a>
 							</dd>
 						</dl></li>
-					<li class="layui-nav-item"><a href="">云市场</a></li>
+					<li class="layui-nav-item"><a href="<%=request.getContextPath()%>/user/toExcel.action" download="k.xls">下载用户基本信息</a></li>
 					<li class="layui-nav-item"><a href="">发布商品</a></li>
 				</ul>
 			</div>

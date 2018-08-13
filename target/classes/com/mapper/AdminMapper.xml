@@ -9,14 +9,30 @@
 	<select id="findAdmin" parameterType="admin" resultType="admin">
 		select * from t_admin where account=${account} and pwd=${pwd}
 	</select>
+	<select id="findByAccount" parameterType="String" resultType="admin">
+		select * from t_admin where account=#{account}
+	</select>
+	
 	<select id="selectPage" resultType="Admin" parameterType="Query">
 		select * from t_admin limit ${page},${limit}
 	</select>
+	<insert id="insertAdmin" parameterType="admin" >
+		<selectKey keyProperty="id" order="AFTER" resultType="int">
+			select last_insert_id()
+		</selectKey>
+		insert into t_admin (account,pwd,roleId,name)values(#{account},#{pwd},#{roleId},#{name})
+		
+	</insert>
+	<update  id="uploadPic" parameterType="query" >
+	
+		update t_admin set pic=#{message} where id=#{id} 
+	
+	</update>
 	<select id="countAll" resultType="int">
 		select count(*) from t_admin 
 	</select>
 	<delete id="deleteAdmin" parameterType="int">
-		delete from t_admin where id = ${id}
+		delete from t_admin where id = #{id}
 	</delete>
 	
 	

@@ -24,10 +24,9 @@ public class RedisTest {
 		System.out.println(rt+"111111111111111111");
 		Admin a = new Admin();
 		a.setId(1);
-		//Jedis jedis = new Jedis("192.168.1.105",6379);
+		Jedis jedis = new Jedis("localhost",6379);
 		//jedis.auth("1415");
 		//System.out.println(jedis.get("a"));
-		
 		rt.opsForValue().set("b", a);
 		Admin b=(Admin) rt.opsForValue().get("b");
 		System.out.println(b==a);

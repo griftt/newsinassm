@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Admin implements Serializable{
 	private int id;
 	private String name;
-
+	private String pic;
 	private String account;
 	private String pwd;
 	private int roleId;
@@ -50,10 +50,20 @@ public class Admin implements Serializable{
 		this.name = name;
 	}
 
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
 	@Override
 	public String toString() {
-		return "Admin [id=" + id + ", name=" + name + ", account=" + account + ", pwd=" + pwd + ", roleId=" + roleId
-				+ "]";
+		return "Admin [id=" + id + ", name=" + name + ", pic=" + pic + ", account=" + account + ", pwd=" + pwd
+				+ ", roleId=" + roleId + "]";
 	}
+
+	
 
 }

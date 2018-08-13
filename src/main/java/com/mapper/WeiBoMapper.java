@@ -20,6 +20,6 @@ public interface WeiBoMapper {
 	public UserMessage getUserMessage(Query q) ;
 	public Integer getFocus(Query q);
 	public Integer getBefocus(Query q);
-	public List<WeiBo> selectWeiboByDate(Integer day) ;
+	public List<WeiBo> selectWeiboByDate(Integer day);
 	
 }

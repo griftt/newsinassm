@@ -1,6 +1,6 @@
 window.onload=function(){
-	layui.use([ 'table', 'element' ], function() {
-		var table = layui.table;
+	layui.use([ 'table', 'element' ,'layer','upload'], function() {
+		var table = layui.table,layer=layui.layer,upload=layui.upload;
 		//转换静态表格
 		//table.init('demo', {
 		//height: 400 //设置高度
@@ -496,26 +496,37 @@ window.onload=function(){
 	var $in2=$("#in2");
 	$in2.blur(function(){
 		if($in1.val()!=$in2.val()){
-			alert("请确认密码");
+			
+			//alert("请确认密码");
+			layer.msg('密码不一致',{icon: 2, skin:'demo-class',anim: 1});
 			return false;
 		}
 	})
 	$("#addAdmin").click(function(){
-		$("input[name='account']").val("")
-		$("input[name='pwd']").val("")
-		$("select[name='roleId']").val(0)
-		$("#adminName").val("")
+		var a= $("input[name='account']").val()
+		var b=$("input[name='pwd']").val()
+		var c=$("select[name='roleId']").val()
+		var d=$("#adminName").val()
+		alert(a+"!"+b+"!"+c+"!"+d)
+		var admin={"account":$("input[name='account']").val(),"pwd":$("input[name='pwd']").val(),"roleId":$("select[name='roleId']").val(),"name":$("#adminName").val()}
 		$.ajax({
-			url:"/sina/adminLogin/addAdmin",
+			url:"/sinassm/adminLogin/addAdmin.action",
 			type:"post",
-			data:{"account":$("input[name='account']").val(),"pwd":$("input[name='pwd']").val(),"roleId":$("select[name='roleId']").val(),"adminName":$("#adminName").val()},
+			//contentType: "application/json;charset=utf-8",
+			data:{"account":$("input[name='account']").val(),"pwd":$("input[name='pwd']").val(),"roleId":$("select[name='roleId']").val(),"name":$("#adminName").val()},
+			//data:"account="+a+"&pwd="+b+"&roleId="+c+"&name="+d,
+			//data:JSON.stringify(admin),
 			dataType:"json",
 			success:function(){
 				alert("success"+$("#adminName").val())
-					$("#empower").trigger("click")
-					$("#userAdmin").trigger("click")
+				var a= $("input[name='account']").val("")
+				var b=$("input[name='pwd']").val("")
+				var c=$("select[name='roleId']").val("")
+				var d=$("#adminName").val("");
+				$("#empower").trigger("click")
 			},
 			error:function(){
+				
 				alert("插入有誤")
 			}
 			
@@ -781,19 +792,48 @@ table.on('tool(weibo)', function(obj){ //注：tool是工具条事件名，test�
 		
 		
 	})
+	//管理员上传头像
+	//执行实例
+  var uploadInst = upload.render({
+    elem: '#admin_icon' //绑定元素
+    ,url: '/sinassm/adminLogin/upload.action' //上传接口
+    ,accept:'images'
+    ,acceptMime: 'image/*'	
+    ,field:'pic'
+    ,size:0
+    ,done: function(res){
+    	$("#admin_icon").attr("src","/pic/"+res.data)
+      //上传完毕回调
+    }
+    ,error: function(res,index){
+    	layer.msg("上传失败");
+      //请求异常回调
+    }
+  });
 	
-	
-	
-	
+	$.ajaxSetup({
+		beforeSend: function () {
+		  layer.load("加载中",{icon:2,anim:5,time:3})
+		},
+		complete: function () {
+		//ajax请求完成，不管成功失败
+		},
+		error: function () {
+		//ajax请求失败
+		}
+		});
 	
 	
 	//下面这个个花括号是layui的
 	
 });
 
+	//ajax开始时的加载动画
 	
 	
 
+	
+	
 	
 	$(".page").css({"opacity":"0","z-index":"1",});
 	$(".users").css({"opacity": "1" , "z-index":"1000",});

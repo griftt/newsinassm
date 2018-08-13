@@ -1,5 +1,12 @@
 package com.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,8 +15,10 @@ import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +28,7 @@ import com.data.ResultMap;
 import com.entity.Query;
 import com.entity.User;
 import com.github.pagehelper.PageInfo;
+import com.poi.ExcelUtil;
 import com.serviceImpl.UserServiceImpl;
 
 @Controller
@@ -101,9 +111,6 @@ public class UserController {
 				return new ResultMap(0,"无相关数据", list,0);
 			}
 			return new ResultMap(0,"", list, count);
-		
-		
-		
 	}
 	//获取当前在线用户的信息
 	@RequestMapping("/getUserOnline.action")
@@ -133,6 +140,67 @@ public class UserController {
 		
 		
 	}
+	
+	//将用户信息打印以excel表格导出
+	@SuppressWarnings("deprecation")
+	@RequestMapping("/toExcel.action")
+	public void toExcel(HttpSession session,HttpServletResponse response ) throws IOException{
+		Query q = new Query();
+		q.setPage(1);
+		q.setLimit(100);
+		
+		List<User> list = us.selectPage(q);
+		ExcelUtil<User> util = new ExcelUtil<User>();
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		String path=session.getServletContext().getRealPath("/");
+		System.err.println(path);
+		File f=new File(path+"/user/toExcel.xls");
+		if(!f.exists()){
+			f.getParentFile().mkdirs();
+		}
+		OutputStream fos=response.getOutputStream();;
+
+		try {
+			util.exportExcel("down1", null,list, fos);
+			
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}try {
+			
+		
+			String fileName = "你好";
+			try {
+					fileName = URLEncoder.encode(fileName, "utf8");//编码普通字符串
+				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+ 
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("application/vnd.ms-excel;charset=utf-8");// 设置contentType为excel格式
+			response.setHeader("Content-Disposition", "Attachment;Filename="+ fileName+".xls");
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+	}
+	
 	
 	
 }

@@ -13,10 +13,16 @@
 .top ul li {float: left;}
 .top .barli1{height: 24px;}
 .top .barli1 li{margin-left: 26px;width: 50px;height: 24px;}
-.top .barli1 li:last-of-type{border-right: 1px solid #d9d9d9;} 
+.top .barli1 li:last-of-type{border-right: 1px solid #d9d9d9;position: relative;} 
 .top .barli2 li{margin-left: 26px;}
 .top .barli1 li:hover{color: #eb7350;}
-.main{width: 1000px;height:3000px;margin: 0 auto;background-color:rgba(209,188,171,.6) ;}
+
+.top .barli2 li:last-of-type{position: relative;}
+.top .barli2 li:last-of-type:hover .setting{height:100px;opacity:1;}
+.top .barli2 li .setting{padding-top:10px;box-sizing:border-box; font-size:15px;text-align:center;width:100px;height:0px;opacity:0;background-color:white; position:absolute;top:25px; left:-32px;}
+
+
+.main{width: 1000px;height:1000px; margin: 0 auto;background-color:rgba(209,188,171,.6) ;}
 .main>div{ float: left; height:200px;width: 1000px;} 
 .main .one{background-color: darkblue;height:200px;width: 140px;padding-left: 10px;}
 .main  .two{height:200px;width: 600px;margin-left:2px;margin-right: 10px;}
@@ -76,5 +82,5 @@
  #personBox .down ul li:last-of-type{border: none;}
  #personBox .down .button{height:24px;width: 377px;margin-bottom:16px;margin-top:12px;padding-left: ;box-sizing: border-box;}
  #personBox .down .button span{width:89px;height:24px;border:1px solid  #d9d9d9;padding-top:2px;box-sizing: border-box;border-radius:3px; display: inline-block;text-align:center ;margin-right:10px; color: #333333; }
- 
+ #canleFocus:hover{cursor:pointer;}
  

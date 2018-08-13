@@ -25,15 +25,15 @@ xmlns:websocket="http://www.springframework.org/schema/websocket
 
 
 	<!-- 自动将控制器加载到bean-->
-	<context:component-scan base-package="com" />
+	<context:component-scan base-package="com"/>
 	
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven> </mvc:annotation-driven>
 	<!-- 还应配置拦截器-->  
 	<mvc:interceptors>
 		<mvc:interceptor >
 			<mvc:mapping path="/userRequest/*.action"/>
 			<mvc:exclude-mapping path="/userRequest/userLogin.action"/>
-			<bean class="com.interceptor.UserLoginInterceptor"/>
+			<bean class="com.interceptor.UserLoginInterceptor"/> 
 		</mvc:interceptor>
 		<mvc:interceptor >
 			<mvc:mapping path="/**/*.action"/>
@@ -48,6 +48,7 @@ xmlns:websocket="http://www.springframework.org/schema/websocket
 	
 	<!-- 注册异常处理器 -->
 	<bean class="com.exception.ExceptionHandler"></bean>
+	
 	<!-- websocket的处理器 -->
 	<bean class="com.socket.MyHandler"></bean>
 	<bean
@@ -95,9 +96,9 @@ xmlns:websocket="http://www.springframework.org/schema/websocket
 	<!-- 文件上传 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 设置上传文件的最大尺寸为5MB -->
+		<!-- 设置上传文件的最大尺寸为10MB -->
 		<property name="maxUploadSize">
-			<value>5242880</value>
+			<value>10242880</value>
 		</property>
 	</bean>
 

@@ -14,4 +14,6 @@ public interface AdminMapper {
 	public boolean deleteAdmin(int id);
 	public boolean insertAdmin(Admin admin);
 	public boolean updateAdmin(Admin admin);
+	public Admin findByAccount(String principal);
+	public boolean uploadPic(Query q);
 }

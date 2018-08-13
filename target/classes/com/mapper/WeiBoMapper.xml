@@ -60,7 +60,7 @@
 	</select>
 	
 	<delete id="deleteWeiBoById" parameterType="int">
-		delete from t_weibo where id = ${id}
+		delete from t_weibo where id = #{id}
 	</delete>
 	<insert id="insertWeiBo" parameterType="weiBo" >
 		<selectKey keyProperty="id" order="AFTER" resultType="int">

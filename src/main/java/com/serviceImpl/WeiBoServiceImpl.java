@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.entity.Query;
 import com.entity.UserMessage;
@@ -15,6 +18,7 @@ import com.mapper.WeiBoMapper;
 import com.serviceInterface.WeiBoServiceInterface;
 
 @Service
+@Transactional
 public class WeiBoServiceImpl implements WeiBoServiceInterface {
 	
 	@Autowired
@@ -50,7 +54,12 @@ public class WeiBoServiceImpl implements WeiBoServiceInterface {
 	}
 
 	@Override
+	@Transactional(isolation=Isolation.READ_COMMITTED,propagation=Propagation.NEVER)
 	public boolean deleteWeiBoById(int id) {
+		if(id<=0){
+			return false;
+		}
+		wbm.deleteWeiBoById(id);
 		return false;
 	}
 

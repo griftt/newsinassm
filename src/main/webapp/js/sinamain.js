@@ -76,6 +76,8 @@ window.onload=function(){
     	 });
   //取消关注
      var main_userId =$("#main_userId").val();
+    
+     
   $("#canleFocus").click(function(){
 	  var ObjectId_focus=$(this).parent().parent().parent().parent().find("#userId").val();
 	  $.ajax({ 

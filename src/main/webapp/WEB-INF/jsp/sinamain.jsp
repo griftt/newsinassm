@@ -35,7 +35,13 @@
 	</ul>
 	<ul class="barli2">
 		<li>信息</li>
-		<li>设置</li>
+		<li>
+		<span>设置</span>
+		<div class="setting">
+			<a  href="<%=request.getContextPath() %>/userRequest/userLoginout.action">退出</a>
+		</div>
+		
+		</li>
 	</ul>
 </div>
 <div class="WB_miniblog">

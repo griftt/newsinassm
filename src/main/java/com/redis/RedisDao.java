@@ -2,7 +2,7 @@ package com.redis;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
+//暂时用不上
 public class RedisDao {
 	
 	

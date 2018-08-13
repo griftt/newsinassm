@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.UserMapper">
+	<resultMap type="uw" id="RM_q">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="time" property="time"/>
+		<result column="content" property="content"/>
+	</resultMap>
+
+
 	<select id="selectAll" resultType="user">
 		select * from t_user
 	</select>
@@ -35,6 +43,15 @@
 	<delete id="deleteUserById" parameterType="int">
 		delete from t_user where id = ${id}
 	</delete>
+	
+	<select id="selectUserWeiboByDate" parameterType="query" resultMap="RM_q">
+		select u.id,u.name,w.content,w.time from t_user u,t_weibo w where u.id=w.userid and w.userid=#{id}
+		
+		<if test="objectId >0">
+		 and date_sub(curdate(),interval #{objectId} day ) &lt; time 
+		 </if>
+		
+	</select>
 	
 	
 	
